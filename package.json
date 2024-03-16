@@ -1,0 +1,39 @@
+{
+  "name": "newproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "dbr": "npx sequelize-cli db:drop && npx   sequelize-cli db:create &&  npx sequelize-cli db:migrate && npx   sequelize-cli db:seed:all "
+  },
+  "nodemonConfig": {
+    "ext": "js, json, hbs, html, jsx"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/register": "^7.23.7",
+    "express": "^4.18.3",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sequelize": "^6.37.1",
+    "sequelize-cli": "^6.6.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0"
+  }
+}
