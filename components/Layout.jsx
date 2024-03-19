@@ -1,23 +1,17 @@
 const React = require('react');
-const NavBar = require('./ui/NavBar');
+const Navbar = require('./ui/Navbar');
 
-module.exports = function Layout({ title, children, user }) {
+module.exports = function Layout({ title, user, children }) {
   return (
     <html lang="en">
       <head>
         <title>{title}</title>
         <link rel="stylesheet" href="/style/reset_style.css" />
         <link rel="stylesheet" href="/style/style.css" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap"
-          rel="stylesheet"
-        />
-        <script defer src="/scripts/auth.js" />
+        <script src="/scripts/signUp.js" defer />
       </head>
       <body>
-        <NavBar user={user} />
+        <Navbar user={user} />
         {children}
       </body>
     </html>

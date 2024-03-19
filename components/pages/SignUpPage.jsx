@@ -2,16 +2,18 @@ const React = require('react');
 const Layout = require('../Layout');
 const Input = require('../ui/Input');
 
-module.exports = function MainPage({ title, user }) {
+module.exports = function SignUpPage({ title }) {
   return (
-    <Layout title={title} user={user}>
-      <form className="upForm" method="POST">
-        <Input type="text" content="login" label="Логин" />
-        <Input type="password" content="password" label="Пароль" />
-        <Input type="text" content="name" label="Имя" />
-        <Input type="text" content="e-mail" label="e-mail" />
-        <button type="submit" className="btn">Регистрация</button>
+    <Layout title={title}>
+      <h1>{title}</h1>
+      <form className="flex column upForm" method="POST">
+        <Input type="text" name="login" label="Логин" />
+        <Input type="password" name="password" label="Пароль" />
+        <Input type="text" name="name" label="Имя" />
+        <Input type="email" name="email" label="e-mail" />
+        <button type="submit" className="btn sub_btn flex">Отправить</button>
       </form>
     </Layout>
+
   );
 };

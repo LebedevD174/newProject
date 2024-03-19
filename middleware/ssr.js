@@ -10,8 +10,10 @@ function renderComponent(component, props, { doctype } = { doctype: true }) {
   const html = ReactDOMServer.renderToStaticMarkup(reactElement);
   return doctype ? `<!DOCTYPE html>${html}` : html;
 }
+
 function ssr(req, res, next) {
   res.renderComponent = renderComponent;
   next();
 }
+
 module.exports = ssr;

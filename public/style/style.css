@@ -1,6 +1,12 @@
 * {
-  font-size: 24px;
+  font-size: 18px;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 20px;
 }
 
 .flex {
@@ -36,9 +42,39 @@ input {
 
 .btn {
   margin: 10px;
-  width: 180px;
-  height: 60px;
+  width: 95%;
   border-radius: 10px;
   color: beige;
   background-color: black;
+  display: flex;
+  justify-content: center;
+}
+
+.sub_btn {
+  width: 250px;
+  height: 50px;
+}
+.pd {
+  height: 250px;
+  width: 180px;
+  color: black;
+  background-color: rgb(58, 133, 177);
+  margin: 2px;
+  padding: 2px;
+  border: solid 2px black;
+  border-radius: 10px;
+}
+
+.prod_cont {
+  width: 95%;
+  flex-wrap: wrap;
+  padding: 10px;
+}
+
+.prod_card {
+  margin: 10px 10px;
+  background-color: rgba(61, 172, 236, 0.61);
+  width: 80%;
+  box-shadow: black 10px 10px 20px;
+  border-radius: 10px;
 }

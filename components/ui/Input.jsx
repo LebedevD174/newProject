@@ -1,11 +1,13 @@
 const React = require('react');
 
-module.exports = function Input({ content, type, label }) {
+module.exports = function Navbar({
+  type, label, name, place = 'Введите',
+}) {
   return (
-    <div className='input'>
-      <label htmlFor={`${content}`}>{label}</label>
+    <div className="input">
+      <label htmlFor={name}>{label}</label>
       <br />
-      <input name={`${content}`} id={`${content}`} type={`${type}`} placeholder={`Введите ${label}`} />
+      <input type={type} placeholder={`${place} ${label}`} name={name} id={name} />
     </div>
   );
 };
