@@ -1,57 +1,33 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
+const bcrypt = require('bcrypt');
+
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    const password = await bcrypt.hash('123456', 5);
     await queryInterface.bulkInsert('Users', [
       {
-      name: 'John',
-      lastName: 'Doe',
-      age: 25,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+        name: 'John Doe',
       },
       {
-        name: 'Jooo',
-        lastName: 'Woo',
-        age: 15,
-        createdAt: new Date(),
+        name: 'Doe John',
+      },
+      {
+        name: 'Дима',
+      },
+      {
+        name: 'Валера',
+      },
+    ].map((el, i) => ({
+      ...el,
+      login: `User${i + 1}`,
+      email: `${el.name}@email.com`,
+      password,
+      createdAt: new Date(),
       updatedAt: new Date(),
-        },
-        {
-          name: 'Joh',
-          lastName: 'Dew',
-          age: 20,
-          createdAt: new Date(),
-      updatedAt: new Date(),
-          },
-          {
-            name: 'Ohjo',
-            lastName: 'Ode',
-            age: 35,
-            createdAt: new Date(),
-      updatedAt: new Date(),
-            },
-    ], {});
-
+    })), {});
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {});
-  }
+  },
 };

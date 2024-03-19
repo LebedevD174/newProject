@@ -9,14 +9,17 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      login: {
+        type: Sequelize.TEXT
+      },
       name: {
         type: Sequelize.TEXT
       },
-      lastName: {
+      password: {
         type: Sequelize.TEXT
       },
-      age: {
-        type: Sequelize.INTEGER
+      email: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

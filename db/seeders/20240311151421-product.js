@@ -1,64 +1,108 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+  async up(queryInterface, Sequelize) {
+    const veg = [
+      {
+        name: 'Огурцы',
+      },
+      {
+        name: 'Помидоры',
+      },
+      {
+        name: 'Картофель',
+      },
+      {
+        name: 'Лук',
+      },
+      {
+        name: 'Редис',
+      },
+    ].map((el, i) => ({
+      ...el,
+      price: i + 2,
+      category_id: 1,
+    }));
+    const fruit = [
+      {
+        name: 'Яблоки',
+      },
+      {
+        name: 'Груши',
+      },
+      {
+        name: 'Апельсины',
+      },
+      {
+        name: 'Мандарины',
+      },
+      {
+        name: 'Манго',
+      },
+    ].map((el, i) => ({
+      ...el,
+      price: i + 2 + 0.1 * i,
+      category_id: 2,
+    }));
+    const meat = [
+      {
+        name: 'Говядина',
+      },
+      {
+        name: 'Свинина',
+      },
+      {
+        name: 'Ребрышки',
+      },
+    ].map((el, i) => ({
+      ...el,
+      price: i + 10 + 0.2 * i,
+      category_id: 3,
+    }));
+    const poultry = [
+      {
+        name: 'Курица',
+      },
+      {
+        name: 'Индейка',
+      },
+      {
+        name: 'Утка',
+      },
+    ].map((el, i) => ({
+      ...el,
+      price: i + 5 + 0.2 * i,
+      category_id: 4,
+    }));
+    const other = [
+      {
+        name: 'Фарш',
+      },
+      {
+        name: 'Котлеты',
+      },
+      {
+        name: 'Пельмени',
+      },
+    ].map((el, i) => ({
+      ...el,
+      price: i + 10 + 0.15 * i,
+      category_id: 5,
+    }));
+
     await queryInterface.bulkInsert('Products', [
-      {
-         name: 'Пиво',
-         price: 1,
-         category_id: 1,
-         createdAt: new Date(),
+      ...veg,
+      ...fruit,
+      ...meat,
+      ...poultry,
+      ...other,
+    ].map((el) => ({
+      ...el,
+      createdAt: new Date(),
       updatedAt: new Date(),
-       },
-       {
-        name: 'Водка',
-        price: 3,
-        category_id: 1,
-        createdAt: new Date(),
-      updatedAt: new Date(),
-      },
-      {
-        name: 'Виски',
-        price: 5,
-        category_id: 1,
-        createdAt: new Date(),
-      updatedAt: new Date(),
-      },
-      {
-        name: 'Не пиво',
-        price: 10,
-        category_id: 2,
-        createdAt: new Date(),
-      updatedAt: new Date(),
-      },
-      {
-        name: 'Не водка',
-        price: 15,
-        category_id: 2,
-        createdAt: new Date(),
-      updatedAt: new Date(),
-      },
-      {
-        name: 'Не виски',
-        price: 20,
-        category_id: 2,
-        createdAt: new Date(),
-      updatedAt: new Date(),
-      },
-      ], {});
+    })), {});
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -66,5 +110,5 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     await queryInterface.bulkDelete('Products', null, {});
-  }
+  },
 };
