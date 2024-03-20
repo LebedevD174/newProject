@@ -13,7 +13,7 @@ module.exports = function Navbar({ user }) {
             Привет,
             {user.name}
           </a>
-          <a href="/logout">Выйти</a>
+          <a href="/auth/api/logout">Выйти</a>
         </div>
       ) : (
         <div>

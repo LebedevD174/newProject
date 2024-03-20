@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { User } = require('../../db/models');
 const SignUpPage = require('../../components/pages/SignUpPage');
-const apiAuth = require('../api/api.auth.router')
+const SignInPage = require('../../components/pages/SignInPage');
+const apiAuth = require('../api/api.auth.router');
 
 router.get('/sign-up', async (req, res) => {
   const html = res.renderComponent(SignUpPage, {
@@ -10,6 +10,13 @@ router.get('/sign-up', async (req, res) => {
   res.send(html);
 });
 
-router.use('/api', apiAuth)
+router.get('/sign-in', async (req, res) => {
+  const html = res.renderComponent(SignInPage, {
+    title: 'Авторизация',
+  });
+  res.send(html);
+});
+
+router.use('/api', apiAuth);
 
 module.exports = router;
