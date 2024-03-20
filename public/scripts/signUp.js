@@ -49,7 +49,7 @@ if (inForm) {
     console.log(data.message, '+++++++++++++++++++++++++++++++');
     if (data.message === 'success') {
       
-      // window.location.assign('/');
+      window.location.assign('/');
     } else {
       alert(data.message);
     }

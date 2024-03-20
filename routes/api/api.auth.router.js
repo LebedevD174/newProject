@@ -12,9 +12,26 @@ router.post('/sign-up', async (req, res) => {
     const user = await User.findOne({ where: { login } });
     if (login === user?.login) { res.json({ message: 'Login уже используется' }); } else {
       const hash = await bcrypt.hash(password, 5);
-      await User.create({
+      const newUser = await User.create({
         login, password: hash, name, email,
       });
+      res.locals.user = newUser;
+      const { accessToken, refreshToken } = generateTokens({
+        user: {
+          id: newUser.id,
+          login: newUser.login,
+          name: newUser.name,
+        },
+      });
+      res
+        .cookie(jwtConfig.refresh.type, refreshToken, {
+          maxAge: jwtConfig.refresh.expiresIn,
+          httpOnly: true,
+        })
+        .cookie(jwtConfig.access.type, accessToken, {
+          maxAge: jwtConfig.access.expiresIn,
+          httpOnly: true,
+        });
       res.json({ message: 'success' });
     }
   } catch ({ message }) {
@@ -27,18 +44,27 @@ router.post('/sign-in', async (req, res) => {
     const {
       login, password,
     } = req.body;
-    // console.log(login, password);
     const user = await User.findOne({ where: { login } });
-    // console.log(user);
     if (login !== user?.login) { res.json({ message: 'Такого пользователя нет' }); } else {
       const isRight = await bcrypt.compare(password, user.password);
-      console.log(isRight);
       if (isRight) {
         res.locals.user = user;
-        const { accessToken, refreshToken } = generateTokens({ user: { id: user.id, login: user.login, name: user.name } });
+        const { accessToken, refreshToken } = generateTokens({
+          user: {
+            id: user.id,
+            login: user.login,
+            name: user.name,
+          },
+        });
         res
-          .cookie(jwtConfig.refresh.type, refreshToken, { maxAge: jwtConfig.refresh.expiresIn, httpOnly: true })
-          .cookie(jwtConfig.access.type, accessToken, { maxAge: jwtConfig.access.expiresIn, httpOnly: true });
+          .cookie(jwtConfig.refresh.type, refreshToken, {
+            maxAge: jwtConfig.refresh.expiresIn,
+            httpOnly: true,
+          })
+          .cookie(jwtConfig.access.type, accessToken, {
+            maxAge: jwtConfig.access.expiresIn,
+            httpOnly: true,
+          });
         res.json({ message: 'success' });
       } else {
         res.json({ message: 'Неверный пароль' });
@@ -46,6 +72,16 @@ router.post('/sign-in', async (req, res) => {
     }
   } catch ({ message }) {
     res.json({ message });
+  }
+});
+
+router.get('/logout', (req, res) => {
+  try {
+    res.clearCookie(jwtConfig.refresh.type);
+    res.clearCookie(jwtConfig.access.type);
+    res.redirect('/');
+  } catch (error) {
+    console.log(error);
   }
 });
 
